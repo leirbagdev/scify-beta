@@ -244,7 +244,8 @@ def search_pubmed(query, max_results=MAX_RESULTS):
                     "year": year,
                     "journal": journal,
                     "citation": citation,
-                    "source": "PubMed"
+                    "source": "PubMed",
+                    "apis_utilizadas": "E-Search (NCBI/PubMed), E-Summary (NCBI/PubMed), E-Link (NCBI/PubMed), E-Info (NCBI/PubMed)"
                 })
             except Exception as e:
                 st.error(f"Erro processando artigo: {str(e)}")
