@@ -57,75 +57,6 @@ def normalize_term(term: str, language: str = "pt-br") -> str:
     normalized = ' '.join(normalized.split())
     return normalized
 
-# Função para traduzir texto para português (versão simples sem API)
-def traduzir_para_portugues(texto):
-    # Implementação simplificada de tradução automática
-    # Em um ambiente real, você usaria uma API de tradução
-    traducoes = {
-        "Abstract": "Resumo",
-        "Introduction": "Introdução",
-        "Methods": "Métodos",
-        "Results": "Resultados",
-        "Conclusion": "Conclusão",
-        "Discussion": "Discussão",
-        "Background": "Contexto",
-        "Objective": "Objetivo",
-        "Design": "Desenho do estudo",
-        "Setting": "Ambiente",
-        "Participants": "Participantes",
-        "Interventions": "Intervenções",
-        "Measurements": "Medidas",
-        "Findings": "Achados",
-        "Research": "Pesquisa",
-        "Analysis": "Análise",
-        "Study": "Estudo",
-        "treatment": "tratamento",
-        "exercise": "exercício",
-        "patients": "pacientes",
-        "training": "treinamento",
-        "muscle": "músculo",
-        "hypertrophy": "hipertrofia",
-        "weight": "peso",
-        "strength": "força",
-        "health": "saúde",
-        "diet": "dieta",
-        "nutrition": "nutrição",
-        "disease": "doença",
-        "medicine": "medicina",
-        "therapy": "terapia",
-        "clinical": "clínico",
-        "effect": "efeito",
-        "improvement": "melhoria",
-        "development": "desenvolvimento",
-        "protocol": "protocolo",
-        "assessment": "avaliação",
-        "control": "controle",
-        "group": "grupo",
-        "increase": "aumento",
-        "decrease": "diminuição",
-        "significant": "significativo",
-        "impact": "impacto",
-        "outcomes": "resultados",
-        "evidence": "evidência",
-        "trial": "ensaio",
-        "randomized": "randomizado",
-        "benefit": "benefício"
-    }
-    
-    # Substituição simples de palavras
-    translated_text = texto
-    for en, pt in traducoes.items():
-        # Substituir a palavra exata (com limites de palavra)
-        translated_text = translated_text.replace(f" {en}:", f" {pt}:")
-        translated_text = translated_text.replace(f" {en} ", f" {pt} ")
-        # Também tentar com primeira letra maiúscula
-        cap_en = en.capitalize()
-        cap_pt = pt.capitalize()
-        translated_text = translated_text.replace(f" {cap_en}:", f" {cap_pt}:")
-        translated_text = translated_text.replace(f" {cap_en} ", f" {cap_pt} ")
-    
-    return translated_text
-
 # Função para registrar artigo visualizado
 def registrar_artigo_visualizado(article):
     # Verificar se o artigo já está no histórico para não duplicar
@@ -786,10 +717,6 @@ def main():
                                 # Registrar que este artigo foi visualizado quando o usuário abre o expander
                                 registrar_artigo_visualizado(result)
                                 
-                                # Mostrar tradução do título como subtítulo com estilo distinto
-                                if traduzir:
-                                    st.markdown(f"<small><i>Tradução: {traduzir_para_portugues(result['title'])}</i></small>", unsafe_allow_html=True)
-                                
                                 col1, col2 = st.columns([3, 1])
                                 with col1:
                                     st.markdown(f"**Fonte:** {result['source']}")
@@ -802,14 +729,7 @@ def main():
                                 
                                 # Traduzir resumo se a opção estiver ativada
                                 abstract = result["abstract"]
-                                if traduzir:
-                                    abstract_pt = traduzir_para_portugues(abstract)
-                                    st.markdown(f"**Resumo (Traduzido):** {abstract_pt}")
-                                    # Não podemos ter expander dentro de expander
-                                    st.markdown("**Resumo original:**")
-                                    st.markdown(f"{abstract}")
-                                else:
-                                    st.markdown(f"**Resumo:** {abstract}")
+                                st.markdown(f"**Resumo:** {abstract}")
                                 
                                 st.markdown(f"**Link:** [{result['url']}]({result['url']})")
                 
